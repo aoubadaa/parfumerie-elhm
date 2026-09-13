@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#ffffff">
+    <meta name="color-scheme" content="light">
+    <title>Décantes 10ml | ELHM</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <a href="index.html" class="logo" aria-label="Parfumerie ELHM - Accueil">PARFUMERIE <span class="logo-hm">HM</span></a>
+            <nav class="nav-links">
+                <a href="index.html">Accueil</a>
+                <a href="homme.html">Homme</a>
+                <a href="femme.html">Femme</a>
+                <a href="packs.html">Packs</a>
+                <a href="decantes.html" class="active">Décantes</a>
+            </nav>
+            <div class="header-actions">
+                <input type="text" class="search-bar" placeholder="Rechercher..." onkeyup="handleSearch(event)">
+                <button class="cart-btn" onclick="toggleCart()">
+                    🛒 <span class="cart-count" id="cartCount">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <h2 class="page-title">Décantes (10ml)</h2>
+        <div class="product-grid" id="productGrid" data-category="Decante"></div>
+    </main>
+
+
+    <!-- CUSTOMER REVIEWS -->
+    <section class="customer-reviews-section">
+        <div class="reviews-container">
+            <div class="reviews-heading">
+                <span class="reviews-eyebrow">AVIS CLIENTS</span>
+                <h2>Ce que nos clients pensent de ELHM</h2>
+                <p>Quelques exemples de présentation. Remplacez-les par de vrais avis clients avant la mise en ligne.</p>
+            </div>
+
+            <div class="reviews-grid">
+                <article class="review-card">
+                    <div class="review-top">
+                        <div class="review-avatar">SE</div>
+                        <div class="review-person">
+                            <h3>Sara El Amrani</h3>
+                            <span>Casablanca</span>
+                        </div>
+                        <span class="review-demo-badge">Exemple</span>
+                    </div>
+                    <div class="review-stars" aria-label="5 étoiles">★★★★★</div>
+                    <p class="review-text">“Très belle présentation et service rapide. La commande est arrivée bien emballée et le parfum correspondait exactement à ce que j’attendais.”</p>
+                    <div class="review-verified">✓ Avis de démonstration</div>
+                </article>
+
+                <article class="review-card">
+                    <div class="review-top">
+                        <div class="review-avatar">YB</div>
+                        <div class="review-person">
+                            <h3>Youssef Benali</h3>
+                            <span>Rabat</span>
+                        </div>
+                        <span class="review-demo-badge">Exemple</span>
+                    </div>
+                    <div class="review-stars" aria-label="5 étoiles">★★★★★</div>
+                    <p class="review-text">“Franchement très satisfait. Le choix est varié, la commande est simple et le paiement à la livraison est vraiment pratique.”</p>
+                    <div class="review-verified">✓ Avis de démonstration</div>
+                </article>
+
+                <article class="review-card">
+                    <div class="review-top">
+                        <div class="review-avatar">IA</div>
+                        <div class="review-person">
+                            <h3>Imane Alaoui</h3>
+                            <span>Marrakech</span>
+                        </div>
+                        <span class="review-demo-badge">Exemple</span>
+                    </div>
+                    <div class="review-stars" aria-label="5 étoiles">★★★★★</div>
+                    <p class="review-text">“J’ai beaucoup aimé l’expérience. Le parfum était très bien présenté et le service WhatsApp était clair et professionnel.”</p>
+                    <div class="review-verified">✓ Avis de démonstration</div>
+                </article>
+
+                <article class="review-card">
+                    <div class="review-top">
+                        <div class="review-avatar">HB</div>
+                        <div class="review-person">
+                            <h3>Hamza Berrada</h3>
+                            <span>Tanger</span>
+                        </div>
+                        <span class="review-demo-badge">Exemple</span>
+                    </div>
+                    <div class="review-stars" aria-label="5 étoiles">★★★★★</div>
+                    <p class="review-text">“Site facile à utiliser et produits bien présentés. J’apprécie surtout la possibilité de commander directement et de payer à la réception.”</p>
+                    <div class="review-verified">✓ Avis de démonstration</div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <div class="cart-overlay" id="cartOverlay">
+        <div class="cart-modal">
+            <!-- (Cart logic remains exactly the same as provided) -->
+            <div class="cart-header">
+                <div class="cart-header-copy">
+                    <span class="cart-eyebrow">VOTRE SÉLECTION</span>
+                    <h3>Votre Panier</h3>
+                    <p><span id="cartItemsCount">0</span> article(s)</p>
+                </div>
+                <button class="cart-close-btn" type="button" onclick="toggleCart()" aria-label="Fermer le panier">&times;</button>
+            </div>
+            <div class="cart-items" id="cartItems"></div>
+            <div id="checkoutFormSection" style="display: none;">
+                <div class="cart-summary">
+                        <div class="cart-summary-title">Résumé de la commande</div>
+                    <div class="summary-row">
+                        <span>Sous-total</span>
+                        <span id="subtotalPrice">0.00 DH</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Livraison</span>
+                        <span id="shippingPrice">Gratuite</span>
+                    </div>
+                    <div class="summary-total">
+                        <span>Total</span>
+                        <span id="totalPrice">0.00 DH</span>
+                    </div>
+                </div>
+                <form id="orderForm" class="checkout-form" onsubmit="processCheckout(event)">
+                    <h4>Paiement à la livraison</h4>
+                    <div class="form-group">
+                        <input type="text" id="chkName" placeholder="Nom Complet *" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="tel" id="chkPhone" placeholder="Téléphone *" required>
+                    </div>
+                    <div class="form-group">
+                        <select id="chkCity" required onchange="toggleOtherCity()">
+                            <option value="">Sélectionner votre ville *</option>
+                            <option value="Casablanca">Casablanca</option>
+                            <option value="Rabat">Rabat</option>
+                            <option value="Fès">Fès</option>
+                            <option value="Tanger">Tanger</option>
+                            <option value="Marrakech">Marrakech</option>
+                            <option value="Agadir">Agadir</option>
+                            <option value="Oujda">Oujda</option>
+                            <option value="Kénitra">Kénitra</option>
+                            <option value="Meknès">Meknès</option>
+                            <option value="Tétouan">Tétouan</option>
+                            <option value="Safi">Safi</option>
+                            <option value="Mohammedia">Mohammedia</option>
+                            <option value="Khouribga">Khouribga</option>
+                            <option value="El Jadida">El Jadida</option>
+                            <option value="Béni Mellal">Béni Mellal</option>
+                            <option value="Nador">Nador</option>
+                            <option value="Taza">Taza</option>
+                            <option value="Settat">Settat</option>
+                            <option value="Salé">Salé</option>
+                            <option value="Témara">Témara</option>
+                            <option value="Laayoune">Laayoune</option>
+                            <option value="Autre">Autre Ville</option>
+                        </select>
+                        <input type="text" id="chkOtherCity" placeholder="Entrez le nom de votre ville *" style="display: none; margin-top: 1rem; width: 100%; padding: 0.8rem; border: 1px solid var(--border-color); border-radius: 4px;">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="chkAddress" placeholder="Adresse complète *" required>
+                    </div>
+                    <button type="submit" class="checkout-btn">Commander sur WhatsApp</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- PRODUCT DETAIL MODAL -->
+    <div class="product-modal-overlay" id="productModal" style="display: none;">
+        <div class="product-modal-box">
+            <button class="close-modal" onclick="closeProductModal()">&times;</button>
+            <div class="pm-layout">
+                <div class="pm-images">
+                    <!-- Main Image Placeholder (You can replace background colors/images later) -->
+                    <div class="pm-main-img" id="pmMainImage">ELHM</div>
+                    <div class="pm-thumbnails">
+                        <div class="pm-thumb active">Vue 1</div>
+                        <div class="pm-thumb">Vue 2</div>
+                    </div>
+                </div>
+                <div class="pm-details">
+                    <span class="pm-category" id="pmCategory">Catégorie</span>
+                    <h2 id="pmTitle">Nom du produit</h2>
+                    <div class="pm-price" id="pmPrice">0.00 DH</div>
+                    
+                    <div class="pm-description" id="pmDescription">
+                        Fragrance de luxe authentique. Parfaite pour toutes les occasions, elle laisse un sillage mémorable et raffiné tout au long de la journée.
+                    </div>
+                    
+                    <div class="pm-actions">
+                        <div class="pm-qty">
+                            <button onclick="pmChangeQty(-1)">-</button>
+                            <span id="pmQtyDisplay">1</span>
+                            <button onclick="pmChangeQty(1)">+</button>
+                        </div>
+                        <button class="pm-add-btn" onclick="pmAddToCart()">AJOUTER AU PANIER</button>
+                    </div>
+                    
+                    <button class="pm-order-btn" onclick="pmOrderNow()">Commander maintenant</button>
+                    
+                    <div class="pm-features">
+                        <div class="feature-item">
+                            <strong>Livraison gratuite · 1-2j</strong>
+                            <span>Partout au Maroc</span>
+                        </div>
+                        <div class="feature-item">
+                            <strong>Authentique</strong>
+                            <span>Qualité Garantie</span>
+                        </div>
+                        <div class="feature-item">
+                            <strong>Paiement</strong>
+                            <span>À la livraison</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="site-footer">
+        <div class="footer-shell">
+            <div class="footer-hero">
+                <div class="footer-brand-block">
+                    <a href="index.html" class="footer-brand" aria-label="Parfumerie HM - Accueil">
+                        <span class="footer-brand-mark">HM</span>
+                        <span class="footer-brand-copy">
+                            <strong>PARFUMERIE</strong>
+                            <small>L'élégance en signature</small>
+                        </span>
+                    </a>
+                    <p class="footer-brand-text">Parfums, décantes et packs sélectionnés avec soin. Livraison gratuite partout au Maroc et paiement à la réception.</p>
+
+                    <div class="footer-trust-row" aria-label="Nos engagements">
+                        <span>✓ Livraison gratuite</span>
+                        <span>✓ Paiement à la réception</span>
+                        <span>✓ Service au Maroc</span>
+                    </div>
+                </div>
+
+                <div class="footer-contact-card">
+                    <span class="footer-contact-kicker"><i></i> CONSEIL & COMMANDE</span>
+                    <h3>Besoin d'aide pour choisir ?</h3>
+                    <p>Écrivez-nous directement sur WhatsApp. Nous vous aidons à trouver le parfum qui vous correspond.</p>
+                    <a href="https://wa.me/212772735680" target="_blank" rel="noopener" class="footer-whatsapp-btn">
+                        <span class="footer-wa-icon" aria-hidden="true">W</span>
+                        <span class="footer-wa-copy">
+                            <small>WhatsApp</small>
+                            <strong>+212 772-735680</strong>
+                        </span>
+                        <span class="footer-wa-arrow" aria-hidden="true">↗</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="footer-nav-area">
+                <div class="footer-nav-group">
+                    <span class="footer-nav-label">CATALOGUE</span>
+                    <a href="homme.html">Parfums Homme <span>→</span></a>
+                    <a href="femme.html">Parfums Femme <span>→</span></a>
+                    <a href="packs.html">Packs & offres <span>→</span></a>
+                    <a href="decantes.html">Décantes 10 ml <span>→</span></a>
+                </div>
+
+                <div class="footer-nav-group">
+                    <span class="footer-nav-label">DÉCOUVRIR</span>
+                    <a href="index.html#perfumeFinder">Trouver mon parfum <span>→</span></a>
+                    <a href="index.html#productGrid">Meilleures ventes <span>→</span></a>
+                    <a href="index.html">Accueil <span>→</span></a>
+                </div>
+
+                <div class="footer-nav-group footer-info-group">
+                    <span class="footer-nav-label">SERVICE</span>
+                    <div class="footer-info-line"><span class="footer-info-icon">◇</span><div><strong>Livraison</strong><small>Gratuite partout au Maroc</small></div></div>
+                    <div class="footer-info-line"><span class="footer-info-icon">✓</span><div><strong>Paiement</strong><small>À la réception</small></div></div>
+                    <div class="footer-info-line"><span class="footer-info-icon">↗</span><div><strong>WhatsApp</strong><small>+212 772-735680</small></div></div>
+                </div>
+            </div>
+
+            <div class="footer-bottom-bar">
+                <p>&copy; 2026 Parfumerie HM. Tous droits réservés.</p>
+                <div class="footer-bottom-actions">
+                    <span>Maroc</span>
+                    <a href="#" class="footer-top-link" aria-label="Retour en haut">Retour en haut <b>↑</b></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
